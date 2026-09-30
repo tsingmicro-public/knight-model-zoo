@@ -1,0 +1,44 @@
+{
+    "chip": "TX5326DV500",
+    "quant": {
+        "model": "/data/examples/yolov5s/model/yolov5s.onnx",
+        "infer-func": "infer_common",
+        "bit-width": 8,
+        "quant-mode": "mse",
+        "batch-size": 1,
+        "run-mode": "quant",
+        "iteration": 10,
+        "output-dequant": true,
+        "dump": true,
+        "output-name": "/model.24/m.0/Conv_output_0 /model.24/m.1/Conv_output_0 /model.24/m.2/Conv_output_0",
+        "save-dir": "/data/examples/yolov5s/output/quant",
+        "opset-version":14,
+        "log-level": 3,
+        "user-defined-script": "/opt/Quantize/onnx_examples/infer_common.py",
+        "input-configs": [
+            {
+                "input_name": "images",
+                "quant_data_format": "Image",
+                "data_dir": "/data/examples/dataset/coco_random_10",
+                "color_space": "RGB",
+                "mean": [
+                    0,
+                    0,
+                    0
+                ],
+                "std": [
+                    255.0,
+                    255.0,
+                    255.0
+                ],
+                "quantize_input_dtype": "uint8",
+                "padding_constant_value": 0
+            }
+        ]
+    },
+    "compile": {
+        "onnx":"/data/examples/yolov5s/output/yolov5s_quantize.onnx",
+        "log-level":3,
+        "save-dir": "/data/examples/yolov5s/output/compile"
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "chip": "TX5326DV500",
+    "quant": {
+        "model": "/data/examples/resnet18/model/resnet18.onnx",
+        "infer-func": "infer_common",
+        "bit-width": 8,
+        "iteration": "10",
+        "quant-mode": "kl",
+        "batch-size": 1,
+        "run-mode": "quant",
+        "dump": true,
+        "output-dequant": false,
+        "save-dir": "/data/examples/resnet18/output/quant",
+        "user-defined-script": "/opt/Quantize/onnx_examples/infer_common.py",
+        "input-configs": [
+            {
+                "input_name": "x",
+                "quant_data_format": "Image",
+                "data_dir": "/data/examples/dataset/imagenet_random_10",
+                "color_space": "RGB",
+                "mean": [
+                    123.675,
+                    116.28,
+                    103.53
+                ],
+                "std": [
+                    58.395,
+                    57.12,
+                    57.375
+                ],
+                "quantize_input_dtype": "uint8"
+            }
+        ]
+    },
+    "compile": {
+        "onnx":"/data/examples/resnet18/output/resnet18_quantize.onnx",
+        "log-level":3,
+        "save-dir": "/data/examples/resnet18/output/compile"
+    }
+}
