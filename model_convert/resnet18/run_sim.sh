@@ -1,5 +1,5 @@
 #数据前处理
-cd /data/model_convert/resnet18
+cd /data/model_convert/base
  
 python3 make_image_input.py \
 --input /data/dataset/imagenet_random_10/ILSVRC2012_val_00000056_n02930766.JPEG \

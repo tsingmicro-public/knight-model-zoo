@@ -10,17 +10,18 @@
 | --- | --- | --- | --- |
 | 图像分类 | ResNet-18 | [model_deploy/resnet18](model_deploy/resnet18) | [model_convert/resnet18](model_convert/resnet18) |
 | 目标检测 | YOLOv5s | [model_deploy/yolov5s](model_deploy/yolov5s) | [model_convert/yolov5s](model_convert/yolov5s) |
+| 目标检测 | Mobilenetv2 | [model_deploy/mobilenet](model_deploy/mobilenet) | [model_convert/mobilenet](model_convert/mobilenet) |
 
 ## 支持的平台
 
-当前模型支持的平台包括：**TX5215x、TX5239x200/300、TX5112x、TX5239x201、TX5336x、TX5110x、TX5326x/TX5329x、TX5212x**。各模型对应的输入规格、校准数据和平台详情见[模型规格目录](model_convet/README.md)。
+当前模型支持的平台包括：**TX5215x、TX5239x200/300、TX5112x、TX5239x201、TX5336x、TX5110x、TX5326x/TX5329x、TX5212x**。各模型对应的输入规格、校准数据和平台详情见[模型规格目录](model_convert/README.md)。
 
 **本仓库支持功能：**
 
 1. **测试已有模型**：准备板端编译环境，编译示例程序，然后在目标设备上运行仓库提供的 tsmodel 和测试图片。见[测试已有模型](#1-板载模型测试)。
 2. **转换模型**：准备 Knight Docker 环境，在容器中运行一键转换脚本。见[转换模型](#2-模型转换)。
 
-当前支持模型、输入规格和芯片平台请查阅[模型规格目录](model_convet/README.md)。数据集统一位于 [dataset](dataset)，模型原始文件、转换配置/脚本及转换产物按模型归档于 [model_convet](model_convet)。
+当前支持模型、输入规格和芯片平台请查阅[模型规格目录](model_convert/README.md)。数据集统一位于 [dataset](dataset)，模型原始文件、转换配置/脚本及转换产物按模型归档于 [model_convet](model_convet)。
 
 ## 1. 板载模型测试
 
@@ -34,8 +35,8 @@
 
 工具链下载信息：
 
-- `gcc-ts-10.3-2023.2-x86_64-arm-none-linux-uclibcgnueabihf.tar.xz`：[下载链接](https://pan.baidu.com/s/1Kq6JJICwhXa0yD-RsOdXLA?pwd=tsnn)，提取码 `tsnn`。
-- `gcc-ts-10.3-2023.2-x86_64-aarch64-none-linux-uclibc.tar.xz`：[下载链接](https://pan.baidu.com/s/1O84K6LQMAgPsZTqI1BfR4g?pwd=tsnn)，提取码 `tsnn`。
+- `gcc-ts-10.3-2023.2-x86_64-arm-none-linux-uclibcgnueabihf.tar.xz`：[下载链接](https://pan.baidu.com/s/1cbB_4aHhOr5geyzU5nQt4w?pwd=tsnn)，提取码 `tsnn`。
+- `gcc-ts-10.3-2023.2-x86_64-aarch64-none-linux-uclibc.tar.xz`：[下载链接](https://pan.baidu.com/s/1Kq6JJICwhXa0yD-RsOdXLA?pwd=tsnn)，提取码 `tsnn`。
 
 CMake 使用仓库内 `3rdparty/` 中与目标架构对应的 OpenCV 库；RNE 运行库目录由根目录 `CMakeLists.txt` 检查。编译机和目标设备需使用匹配的 RNE 运行库版本。
 
@@ -51,6 +52,7 @@ export RNE_RT_ROOT="/absolute/path/to/RNE-RT-Lib"
 ./scripts/build.sh                 # 编译全部模型
 ./scripts/build.sh resnet18        # 只编译 ResNet-18
 ./scripts/build.sh yolov5s         # 只编译 YOLOv5s
+./scripts/build.sh mobilenet         # 只编译 YOLOv5s
 ```
 
 默认输出在 `build/<ARCH>/bin/`。脚本支持 `ARCH`、`TOOLCHAIN_ROOT`、`RNE_RT_ROOT`、`BUILD_DIR`、`BUILD_TYPE`、`JOBS` 和 `USE_DYNAMIC_LIB` 环境变量。当前 `ARCH` 仅支持 `linux_a35_uclibc_32bit` 和 `linux_a53_uclibc` 两种构建目标；各模型支持的芯片平台请查阅[模型规格表](model_convert/README.md)。切换架构时建议使用新的 `BUILD_DIR`。
@@ -64,6 +66,9 @@ export RNE_RT_ROOT="/absolute/path/to/RNE-RT-Lib"
   model_convert/resnet18/resnet18_quantize_r.tsmodel dataset/test_data
 
 ./build/linux_a35_uclibc_32bit/bin/yolov5s_demo.elf \
+  model_convert/yolov5s/yolov5s_quantize_r.tsmodel dataset/test_data
+
+./build/linux_a35_uclibc_32bit/bin/mobilenet_demo.elf \
   model_convert/yolov5s/yolov5s_quantize_r.tsmodel dataset/test_data
 ```
 
@@ -80,6 +85,7 @@ docker -v
 docker load -i ts.knight-3.8.0.9.tar.gz
 ```
 
+
 转换脚本要求仓库在容器内挂载到 `/data`。从宿主机启动容器：
 
 ```bash
@@ -95,6 +101,7 @@ docker run -it -v "${PWD}:/data" ts.knight:3.8.0.9
 cd /data
 Knight build --run-config ./model_convert/resnet18/resnet18_config.json 
 Knight build --run-config ./model_convert/yolov5s/yolov5s_config.json
+Knight build --run-config ./model_convert/mobilenet/mobilenet_config.json
 ```
 
 脚本按序调用各模型配置中的 `Knight build` 命令。ONNX 原始模型、配置和脚本位于 `model_convert/<模型名>/`，校准/测试数据位于 `dataset/`，转换产物写入各模型配置指定的 `model_convert/<模型名>/output/`。
@@ -109,6 +116,7 @@ cd /data
 # 仿真模型
 sh ./model_convert/resnet18/run_sim.sh 
 sh ./model_convert/yolov5s/run_sim.sh 
+sh ./model_convert/mobilenet/run_sim.sh 
 
 # 性能分析
 Knight profiling --run-config ./model_convert/resnet18/resnet18_config.json 

@@ -9,7 +9,6 @@ import csv
 import time
 import torchvision
 import sys
-sys.path.append(r'/TS-KnightDemo/Samples/resnet18/pysrc/resnet18_utils')
 from classes import *
 
 classes = 1000
@@ -19,7 +18,7 @@ parser = argparse.ArgumentParser(description='post txt data')
 parser.add_argument(
     '--input',
     type=str,
-    default='/TS-KnightDemo/output/resnet18/rne/',
+    default='',
     help='the input npy')
 
 FLAGS, unparsed = parser.parse_known_args()
@@ -60,7 +59,7 @@ def get_file_name(input):
 # 仅将第一条数据进行转换
 if __name__ == '__main__':
     input = FLAGS.input
-    txt_list = ['result-fc_p.txt', 'result-prob_p.txt', 'result-linear_1.tmp_3_p.txt', 'result-191_p.txt', 'result-output:0_p.txt']
+    txt_list = ['result-output_p.txt', 'result-output_hwc_p.txt','result-fc_p.txt', 'result-prob_p.txt', 'result-linear_1.tmp_3_p.txt', 'result-191_p.txt', 'result-output:0_p.txt']
     lable_list=["n02930766","n02963159","n03733805","n02268443","n01828970","n01910747","n02095889","n01843065","n01695060","n02037110"]
     files = get_file_name(input)
     if not files:
