@@ -36,7 +36,7 @@
 工具链下载信息：
 
 - `gcc-ts-10.3-2023.2-x86_64-arm-none-linux-uclibcgnueabihf.tar.xz`：[下载链接](https://pan.baidu.com/s/1cbB_4aHhOr5geyzU5nQt4w?pwd=tsnn)，提取码 `tsnn`。
-- `gcc-ts-10.3-2023.2-x86_64-aarch64-none-linux-uclibc.tar.xz`：[下载链接](https://pan.baidu.com/s/1Kq6JJICwhXa0yD-RsOdXLA?pwd=tsnn)，提取码 `tsnn`。
+- `gcc-ts-10.3-2023.2-x86_64-aarch64-none-linux-uclibc.tar.xz`：[下载链接](https://pan.baidu.com/s/1cbB_4aHhOr5geyzU5nQt4w?pwd=tsnn)，提取码 `tsnn`。
 
 CMake 使用仓库内 `3rdparty/` 中与目标架构对应的 OpenCV 库；RNE 运行库目录由根目录 `CMakeLists.txt` 检查。编译机和目标设备需使用匹配的 RNE 运行库版本。
 
