@@ -1,0 +1,26 @@
+# ===== 构建输出 =====
+output/
+build/
+log/
+
+# ===== 日志和临时文件 =====
+*.log
+*.tmp
+
+# ===== Python =====
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# ===== 模型 / 权重 / 配置文件 =====
+*.tsmodel
+*.weight
+*.cfg
+
+# ===== 系统 / IDE =====
+.DS_Store
+.idea/
+.vscode/

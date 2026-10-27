@@ -102,6 +102,7 @@ cd /data
 Knight build --run-config ./model_convert/resnet18/resnet18_config.json 
 Knight build --run-config ./model_convert/yolov5s/yolov5s_config.json
 Knight build --run-config ./model_convert/mobilenet/mobilenet_config.json
+Knight build --run-config ./model_convert/yolov8s/yolov8s_config.json
 ```
 
 脚本按序调用各模型配置中的 `Knight build` 命令。ONNX 原始模型、配置和脚本位于 `model_convert/<模型名>/`，校准/测试数据位于 `dataset/`，转换产物写入各模型配置指定的 `model_convert/<模型名>/output/`。
@@ -117,6 +118,7 @@ cd /data
 sh ./model_convert/resnet18/run_sim.sh 
 sh ./model_convert/yolov5s/run_sim.sh 
 sh ./model_convert/mobilenet/run_sim.sh 
+sh ./model_convert/yolov8s/run_sim.sh 
 
 # 性能分析
 Knight profiling --run-config ./model_convert/resnet18/resnet18_config.json 
