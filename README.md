@@ -9,9 +9,10 @@
 | 任务 | 模型 | 示例代码 | 模型文件与转换资源 |
 | --- | --- | --- | --- |
 | 图像分类 | ResNet-18 | [model_deploy/resnet18](model_deploy/resnet18) | [model_convert/resnet18](model_convert/resnet18) |
+| 图像分类 | Mobilenetv2 | [model_deploy/mobilenet](model_deploy/mobilenet) | [model_convert/mobilenet](model_convert/mobilenet) |
 | 目标检测 | YOLOv5s | [model_deploy/yolov5s](model_deploy/yolov5s) | [model_convert/yolov5s](model_convert/yolov5s) |
-| 目标检测 | Mobilenetv2 | [model_deploy/mobilenet](model_deploy/mobilenet) | [model_convert/mobilenet](model_convert/mobilenet) |
-
+| 目标检测 | YOLOv8s | [model_deploy/yolov8s](model_deploy/yolov8s) | [model_convert/yolov5s](model_convert/yolov8s) |
+| 目标检测 | YOLOWorld | [model_deploy/yolo_world](model_deploy/yolo_world) | [model_convert/yolo_world](model_convert/yolo_world) |
 ## 支持的平台
 
 当前模型支持的平台包括：**TX5215x、TX5239x200/300、TX5112x、TX5239x201、TX5336x、TX5110x、TX5326x/TX5329x、TX5212x**。各模型对应的输入规格、校准数据和平台详情见[模型规格目录](model_convert/README.md)。
@@ -103,6 +104,7 @@ Knight build --run-config ./model_convert/resnet18/resnet18_config.json
 Knight build --run-config ./model_convert/yolov5s/yolov5s_config.json
 Knight build --run-config ./model_convert/mobilenet/mobilenet_config.json
 Knight build --run-config ./model_convert/yolov8s/yolov8s_config.json
+Knight build --run-config ./model_convert/yolo_world/yoloworld_config.json
 ```
 
 脚本按序调用各模型配置中的 `Knight build` 命令。ONNX 原始模型、配置和脚本位于 `model_convert/<模型名>/`，校准/测试数据位于 `dataset/`，转换产物写入各模型配置指定的 `model_convert/<模型名>/output/`。

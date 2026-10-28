@@ -1,0 +1,46 @@
+{
+    "chip": "TX5336AV200",
+    "quant": {
+        "model": "/data/model_convert/yolo_world/yolo-world-v2-s-image.onnx",
+        "infer-func": "infer_common",
+        "bit-width": "8",
+        "quant-mode": "mse",
+        "run-mode": "quant",
+        "dump": true,
+        "save-dir": "/data/model_convert/yolo_world/output/quant",
+        "output-dequant": true,
+        "user-defined-script": "/opt/Quantize/onnx_examples/infer_common.py",
+        "input-configs": [
+            {
+                "input_name": "images",
+                "quant_data_format": "Image",
+                "data_dir": "/data/model_convert/yolo_world/data/images",
+                "color_space": "RGB",
+                "mean": [
+                    0,
+                    0,
+                    0
+                ],
+                "std": [
+                    255.0,
+                    255.0,
+                    255.0
+                ],
+                "quantize_input_dtype": "uint8"
+            },
+            {
+                "input_name": "text",
+                "quant_data_format": "Numpy",
+                "data_dir": "/data/model_convert/yolo_world/data/texts"
+            }
+        ]
+    },
+    "compile": {
+        "onnx": "/data/model_convert/yolo_world/quant/yolo-world-v2-s-image_quantize.onnx",
+        "save-dir": "/data/model_convert/yolo_world/output/compile"
+    },
+    "profiling": {
+        "model":"/data/model_convert/yolo_world/output/compile/yolo-world-v2-s-image_quantize_r.tsmodel",
+        "save-dir": "/data/model_convert/yolo_world/output/profiling"
+    }
+}
