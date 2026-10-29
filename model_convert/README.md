@@ -9,6 +9,7 @@
 | 目标检测 | YOLOv5s | 单输入，640×640 RGB 图像；80 类 COCO 检测 | COCO 子集，`dataset/coco_random_10/` | [ONNX、tsmodel、配置与脚本](yolov5s/) | TX5215x、TX5239x200/300、TX5112x、TX5239x201、TX5336x、TX5110x、TX5326x/TX5329x、TX5212x |
 | 目标检测 | YOLOv8s | 单输入，640×640 RGB 图像；80 类 COCO 检测 | COCO 子集，`dataset/coco_random_10/` | [ONNX、tsmodel、配置与脚本](yolov8s/) | TX5215x、TX5239x200/300、TX5112x、TX5239x201、TX5336x、TX5110x、TX5326x/TX5329x、TX5212x |
 | 目标检测 | YOLOWorld | 单输入，640×640 RGB 图像；80 类 COCO 检测 | COCO 子集，`dataset/coco_random_10/` | [ONNX、tsmodel、配置与脚本](yolo_world/) |TX5336x|
+| 目标检测 | YOLOxs | 单输入，640×640 RGB 图像；80 类 COCO 检测 | COCO 子集，`dataset/coco_random_10/` | [ONNX、tsmodel、配置与脚本](yoloxs/) |TX5336x|
 
 ## 示例源码
 
