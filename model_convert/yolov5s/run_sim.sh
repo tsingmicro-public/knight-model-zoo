@@ -1,5 +1,6 @@
 #前处理
-cd /data/model_convert/yolov5s
+cd /data/model_convert/yoloxs
+
 python3 yolov5_pre_post.py \
 --input /data/dataset/bus.jpg \
 --outpath /data/model_convert/yolov5s/output/pre --pre_processing

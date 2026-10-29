@@ -15,7 +15,7 @@ Knight --chip TX5336AV200 run \
 
 
 #后处理
-python3 yoloword_onnx_pre_post.py  \
+python3 yoloword_pre_post.py  \
 --input  /data/model_convert/yolo_world/output/sim --outpath  /data/model_convert/yolo_world/output/sim \
 --post_processing \
---data /TS-KnightDemo/Samples/yoloworld/data/test_data/bus.jpg
+--data /data/dataset/bus.jpg 
