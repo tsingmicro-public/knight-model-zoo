@@ -1,5 +1,5 @@
 #前处理
-cd /data/model_convert/yoloxs
+cd /data/model_convert/yolov5s
 
 python3 yolov5_pre_post.py \
 --input /data/dataset/bus.jpg \
