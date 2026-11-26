@@ -50,6 +50,7 @@ export ARCH=linux_a35_uclibc_32bit
 export TOOLCHAIN_ROOT="/absolute/path/to/toolchain"
 export RNE_RT_ROOT="/absolute/path/to/RNE-RT-Lib"
 
+chmod +x ./scripts/build.sh
 ./scripts/build.sh                 # 编译全部模型
 ./scripts/build.sh resnet18        # 只编译 ResNet-18
 ./scripts/build.sh yolov5s         # 只编译 YOLOv5s
