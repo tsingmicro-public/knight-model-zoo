@@ -31,7 +31,7 @@ if [[ -n "${JOBS:-}" ]]; then
     PARALLEL_ARGS+=("${JOBS}")
 fi
 
-if [[ ! -d "${RNE_RT_ROOT}/include" || ! -d "${RNE_RT_ROOT}/open_source" ]]; then
+if [[ ! -d "${RNE_RT_ROOT}/include" || ! -d "${RNE_RT_ROOT}/libs" ]]; then
     fail "RNE-RT-Lib not found at ${RNE_RT_ROOT}; set RNE_RT_ROOT to its path"
 fi
 if [[ -n "${TOOLCHAIN_ROOT}" ]]; then

@@ -8,9 +8,9 @@ if(NOT DEFINED USE_DYNAMIC_LIB)
     set(USE_DYNAMIC_LIB 0)
 endif()
 
-# 本示例目录: include / libs / open_source 均拷贝到该目录下
+# 本示例目录：include / libs / open_source 均拷贝到该目录下
 set(SAMPLE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-# knight-model-zoo 仓库根目录: OpenCV 位于 3rdparty 下
+# knight-model-zoo 仓库根目录：OpenCV 位于 3rdparty 下
 set(REPO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 if(ARCH STREQUAL "linux_a35")
@@ -54,7 +54,7 @@ endif()
 set(CMAKE_C_COMPILER "${CC_PREFIX}gcc")
 set(CMAKE_CXX_COMPILER "${CC_PREFIX}g++")
 
-set(LIBS_DIR "${SAMPLE_DIR}/libs/${LIBS_BIT}")
+set(LIBS_DIR "${RNE_RT_ROOT}/libs/${LIBS_BIT}")
 set(OPENCV_DIR "${REPO_DIR}/3rdparty/${OPENCV_DIR_NAME}")
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
@@ -67,14 +67,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CPU_FLAGS} -std=c++11 -O2 ${CPU_FLAGS_COMMON}")
 set(CMAKE_C_FLAGS_DEBUG "${CPU_FLAGS} -std=c99 -O0 -g ${CPU_FLAGS_COMMON}")
 set(CMAKE_CXX_FLAGS_DEBUG "${CPU_FLAGS} -std=c++11 -O0 -g ${CPU_FLAGS_COMMON}")
 
-set(BUILD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build/${ARCH}/${CMAKE_BUILD_TYPE})
-set(EXECUTABLE_OUTPUT_PATH ${BUILD_PATH})
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
-# common 为多模型共享, 放在 model_deploy 目录下
+# common 为各模型共享，放在 model_deploy 目录下
 set(OPEN_SOURCE_DIR ${SAMPLE_DIR}/../common)
 
 include_directories(
-    ${SAMPLE_DIR}/include
+    ${RNE_RT_ROOT}/include
     ${OPEN_SOURCE_DIR}/crc
     ${OPEN_SOURCE_DIR}/gp_layers
     ${OPEN_SOURCE_DIR}/record_file
@@ -86,22 +85,19 @@ include_directories(
 file(GLOB OPEN_SOURCE_C_FILES
     ${OPEN_SOURCE_DIR}/crc/*.c
     ${OPEN_SOURCE_DIR}/gp_layers/*.c
-    ${OPEN_SOURCE_DIR}/record_file/*.c
-)
+    ${OPEN_SOURCE_DIR}/record_file/*.c)
 file(GLOB OPEN_SOURCE_CXX_FILES ${OPEN_SOURCE_DIR}/common/*.cpp)
 
 link_directories(${LIBS_DIR} ${OPENCV_DIR}/libs ${OPENCV_DIR}/libs/opencv4/3rdparty)
 
-add_compile_definitions(DISABLE_PRINT_DEBUG_LAYER_RESULT_ALL)
+add_compile_definitions(DISABLE_PRINT_DEBUG_LAYER RESULT_ALL)
 
 get_filename_component(CURRENT_DIR_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
-set(PROJECT_NAME ${CURRENT_DIR_NAME}.elf)
-
+set(PROJECT_NAME ${CURRENT_DIR_NAME}_demo.elf)
 add_executable(${PROJECT_NAME}
     ${SAMPLE_DIR}/main.cpp
     ${OPEN_SOURCE_C_FILES}
-    ${OPEN_SOURCE_CXX_FILES}
-)
+    ${OPEN_SOURCE_CXX_FILES})
 
 set(LINKER_GROUP_START -Wl,--start-group)
 set(LINKER_GROUP_END -Wl,--end-group)
